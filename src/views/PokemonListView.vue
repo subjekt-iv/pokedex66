@@ -5,6 +5,7 @@ import { storeToRefs } from "pinia";
 import ListComponent from "@/components/molecules/ListComponent.vue";
 import CustomSpinner from "@/components/atoms/CustomSpinner.vue";
 import ModalComponent from "@/components/molecules/ModalComponent.vue";
+import BottomBarComponent from "@/components/molecules/BottomBarComponent.vue";
 
 const store = usePokemonStore();
 const { pokemons, loading } = storeToRefs(store);
@@ -13,16 +14,31 @@ onMounted(() => {
   store.fetchPokemons();
 });
 
-const searchQuery = ref("");
+const filterType = ref("all");
 
 const filteredPokemons = computed(() => {
-  if (!searchQuery.value) {
-    return pokemons.value;
+  if (filterType.value === "favorites") {
+    return pokemons.value.filter((pokemon) =>
+      store.favorites.some((fav) => fav.name === pokemon.name)
+    );
   }
-  return pokemons.value.filter((pokemon) =>
+  return pokemons.value;
+});
+
+const searchQuery = ref("");
+
+const searchedPokemons = computed(() => {
+  if (!searchQuery.value) {
+    return filteredPokemons.value;
+  }
+  return filteredPokemons.value.filter((pokemon) =>
     pokemon.name.toLowerCase().includes(searchQuery.value.toLowerCase())
   );
 });
+
+function handleFilterChange(newFilter) {
+  filterType.value = newFilter;
+}
 </script>
 
 <template>
@@ -43,19 +59,19 @@ const filteredPokemons = computed(() => {
       <CustomSpinner />
     </div>
 
-    <div v-else-if="filteredPokemons.length === 0" class="text-center p-4">
+    <div v-else-if="searchedPokemons.length === 0" class="text-center p-4">
       <p class="text-lg font-semibold">Uh-Oh! No Pokémon found.</p>
       <router-link
         to="/"
         class="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded"
       >
-        Go Backkkk
+        Go Back
       </router-link>
     </div>
 
     <div v-else class="grid grid-cols-1 gap-4">
       <ListComponent
-        v-for="pokemon in filteredPokemons"
+        v-for="pokemon in searchedPokemons"
         :key="pokemon.name"
         :pokemon="pokemon"
       />
@@ -67,5 +83,7 @@ const filteredPokemons = computed(() => {
       :show="store.showModal"
       @close="store.closeModal"
     />
+
+    <BottomBarComponent @filterChange="handleFilterChange" />
   </div>
 </template>

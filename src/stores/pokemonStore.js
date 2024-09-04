@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 export const usePokemonStore = defineStore('pokemon', {
     state: () => ({
         pokemons: [],
-        favorites: [],
+        favorites: JSON.parse(localStorage.getItem('favorites')) || [],
         loading: false,
         showModal: false,
         modalPokemon: null,
@@ -37,7 +37,7 @@ export const usePokemonStore = defineStore('pokemon', {
         },
 
         async fetchPokemonDetails(name) {
-            // this.loading = true;
+
             try {
                 const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
                 const data = await response.json();
@@ -47,19 +47,22 @@ export const usePokemonStore = defineStore('pokemon', {
             } catch (error) {
                 console.error('Error fetching Pokémon details:', error);
             }
-            // finally {
-            //     this.loading = false;
-            // }
         },
 
         addFavorite(pokemon) {
-            if (!this.favorites.includes(pokemon)) {
+            if (!this.favorites.some(fav => fav.name === pokemon.name)) {
                 this.favorites.push(pokemon);
+                this.saveFavorites();
             }
         },
 
         removeFavorite(pokemon) {
-            this.favorites = this.favorites.filter(fav => fav !== pokemon);
+            this.favorites = this.favorites.filter(fav => fav.name !== pokemon.name);
+            this.saveFavorites();
+        },
+
+        saveFavorites() {
+            localStorage.setItem('favorites', JSON.stringify(this.favorites));
         },
 
         openModal(pokemon) {

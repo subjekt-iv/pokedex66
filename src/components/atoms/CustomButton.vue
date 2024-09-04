@@ -14,7 +14,7 @@ const props = defineProps({
   },
   buttonClasses: {
     type: String,
-    default: "bg-red-500 mt-8 text-white px-4 py-2 font-medium rounded-full",
+    default: "bg-[#F22539] mt-8 text-white px-4 py-2 font-medium rounded-full",
   },
 });
 
