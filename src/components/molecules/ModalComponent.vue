@@ -1,7 +1,10 @@
 <script setup>
 import { defineProps, defineEmits, computed } from "vue";
+import { usePokemonStore } from "@/stores/pokemonStore";
 import CustomImage from "@/components/atoms/CustomImage.vue";
 import CustomButton from "@/components/atoms/CustomButton.vue";
+import favIcon from "../../../public/assets/fav.png";
+import nonFavIcon from "../../../public/assets/nonfav.png";
 
 const props = defineProps({
   pokemon: Object,
@@ -9,6 +12,8 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["close"]);
+
+const store = usePokemonStore();
 
 const closeModal = () => {
   emit("close");
@@ -19,6 +24,18 @@ const pokemonImage = computed(() => {
   const id = props.pokemon.id;
   return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
 });
+
+const isFavorite = computed(() =>
+  store.favorites.some((fav) => fav.name === props.pokemon.name)
+);
+
+const toggleFavorite = () => {
+  if (isFavorite.value) {
+    store.removeFavorite(props.pokemon);
+  } else {
+    store.addFavorite(props.pokemon);
+  }
+};
 
 const copyToClipboard = () => {
   const name = props.pokemon?.name || "Unknown";
@@ -38,6 +55,7 @@ const copyToClipboard = () => {
     });
 };
 </script>
+
 
 <template>
   <div v-if="show" class="fixed inset-0 flex items-center justify-center z-50">
@@ -61,7 +79,7 @@ const copyToClipboard = () => {
         <CustomImage
           :src="pokemonImage"
           alt="Pokemon image"
-          imgClasses="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 object-cover rounded-full"
+          imgClasses="absolute top-28 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 object-cover rounded-full"
         />
       </div>
       <div class="pb-4 pt-4 px-4">
@@ -86,17 +104,28 @@ const copyToClipboard = () => {
         <div class="text-left border-b border-[#E8E8E8] pb-2">
           <p class="text-xl text-[#5E5E5E]">
             <span class="font-bold">Type:</span>
-            <span class="font-medium ml-2">{{
-              pokemon?.types[0]?.type.name
-            }}</span>
+            <span class="font-medium ml-2">
+              {{ pokemon?.types[0]?.type.name }}
+              <span v-if="pokemon?.types[1]?.type.name"
+                >, {{ pokemon?.types[1]?.type.name }}</span
+              >
+            </span>
           </p>
         </div>
-        <div class="flex justify-start items-center pb-4">
+
+        <div class="flex justify-between items-center">
           <CustomButton
             class="h-11"
             label="Share to my friends"
             @click="copyToClipboard"
           />
+          <div @click="toggleFavorite">
+            <CustomImage
+              :src="isFavorite ? favIcon : nonFavIcon"
+              alt="Favorite Icon"
+              class="w-8 h-8 mt-8 cursor-pointer"
+            />
+          </div>
         </div>
       </div>
     </div>
