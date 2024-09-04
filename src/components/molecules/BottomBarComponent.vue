@@ -50,6 +50,6 @@ function showFavorites() {
 
 <style scoped>
 .shadow-md {
-  box-shadow: 0 2px 64px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 18px rgba(0, 0, 0, 0.1);
 }
 </style>

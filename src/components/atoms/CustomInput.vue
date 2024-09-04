@@ -30,7 +30,13 @@ watch(searchQuery, (newValue) => {
       v-model="searchQuery"
       type="text"
       placeholder="Search"
-      class="pl-10 p-2 text-gray-800 placeholder-[#BFBFBF] font-medium border rounded w-full"
+      class="pl-10 p-2 text-gray-800 placeholder-[#BFBFBF] font-medium border-none shadow-md rounded w-full"
     />
   </div>
 </template>
+
+<style scoped>
+.shadow-md {
+  box-shadow: 0 2px 18px rgba(0, 0, 0, 0.1);
+}
+</style>
