@@ -43,8 +43,9 @@ const copyToClipboard = () => {
   const weight = props.pokemon?.weight || "Unknown";
   const height = props.pokemon?.height || "Unknown";
   const type = props.pokemon?.types[0]?.type.name || "Unknown";
+  const type2 = props.pokemon?.types[1]?.type.name || "";
 
-  const textToCopy = `${name}, ${weight}, ${height}, ${type}`;
+  const textToCopy = `${name}, ${weight}, ${height}, ${type}, ${type2}`;
 
   navigator.clipboard
     .writeText(textToCopy)

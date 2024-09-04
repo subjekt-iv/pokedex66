@@ -4,6 +4,7 @@ import { usePokemonStore } from "@/stores/pokemonStore";
 import { storeToRefs } from "pinia";
 import ListComponent from "@/components/molecules/ListComponent.vue";
 import CustomSpinner from "@/components/atoms/CustomSpinner.vue";
+import CustomButton from "@/components/atoms/CustomButton.vue";
 import ModalComponent from "@/components/molecules/ModalComponent.vue";
 import BottomBarComponent from "@/components/molecules/BottomBarComponent.vue";
 import SearchInput from "@/components/atoms/CustomInput.vue";
@@ -53,14 +54,14 @@ function handleFilterChange(newFilter) {
       <CustomSpinner />
     </div>
 
-    <div v-else-if="searchedPokemons.length === 0" class="text-center p-4">
-      <p class="text-lg font-semibold">Uh-Oh! No Pokémon found.</p>
-      <router-link
-        to="/"
-        class="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded"
-      >
-        Go Back
-      </router-link>
+    <div v-else-if="searchedPokemons.length === 0" class="text-center mt-8">
+      <p class="text-4xl font-semibold">Uh-Oh!</p>
+      <p class="text-xl mt-4 font-medium text-center">
+        You look lost on your journey!
+      </p>
+      <div class="flex justify-center items-center">
+        <CustomButton class="mt-4" label="Go back home" :route="'/'" />
+      </div>
     </div>
 
     <div v-else class="grid grid-cols-1 gap-4">
