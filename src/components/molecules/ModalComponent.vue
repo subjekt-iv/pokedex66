@@ -1,3 +1,4 @@
+<!-- components/molecules/PokemonModal.vue -->
 <script setup>
 import { defineProps, defineEmits, computed } from "vue";
 import { usePokemonStore } from "@/stores/pokemonStore";
@@ -54,8 +55,13 @@ const copyToClipboard = () => {
       console.error("Failed to copy pokemon :(", err);
     });
 };
-</script>
 
+const formattedName = computed(() => {
+  return (
+    props.pokemon?.name.charAt(0).toUpperCase() + props.pokemon?.name.slice(1)
+  );
+});
+</script>
 
 <template>
   <div v-if="show" class="fixed inset-0 flex items-center justify-center z-50">
@@ -86,7 +92,7 @@ const copyToClipboard = () => {
         <div class="text-left border-b border-[#E8E8E8] pb-2 mb-2">
           <p class="text-xl text-[#5E5E5E]">
             <span class="font-bold">Name:</span>
-            <span class="font-medium ml-2">{{ pokemon?.name }}</span>
+            <span class="font-medium ml-2">{{ formattedName }}</span>
           </p>
         </div>
         <div class="text-left border-b border-[#E8E8E8] pb-2 mb-2">
