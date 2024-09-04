@@ -6,6 +6,7 @@ import ListComponent from "@/components/molecules/ListComponent.vue";
 import CustomSpinner from "@/components/atoms/CustomSpinner.vue";
 import ModalComponent from "@/components/molecules/ModalComponent.vue";
 import BottomBarComponent from "@/components/molecules/BottomBarComponent.vue";
+import SearchInput from "@/components/atoms/CustomInput.vue";
 
 const store = usePokemonStore();
 const { pokemons, loading } = storeToRefs(store);
@@ -42,15 +43,8 @@ function handleFilterChange(newFilter) {
 </script>
 
 <template>
-  <div>
-    <div class="mb-4">
-      <input
-        v-model="searchQuery"
-        type="text"
-        placeholder="Search Pokémon"
-        class="p-2 border rounded w-full"
-      />
-    </div>
+  <div class="flex flex-col mx-auto max-w-[800px]">
+    <SearchInput v-model="searchQuery" imageSrc="../assets/search.png" />
 
     <div
       v-if="loading"

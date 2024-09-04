@@ -27,6 +27,12 @@ function toggleFavorite(event) {
 function openModal() {
   store.fetchPokemonDetails(props.pokemon.name);
 }
+
+const formattedName = computed(() => {
+  return (
+    props.pokemon.name.charAt(0).toUpperCase() + props.pokemon.name.slice(1)
+  );
+});
 </script>
 
 <template>
@@ -35,7 +41,7 @@ function openModal() {
     @click="openModal"
   >
     <div class="flex justify-center items-center">
-      <h2 class="text-lg font-semibold">{{ pokemon.name }}</h2>
+      <h2 class="text-lg font-semibold">{{ formattedName }}</h2>
     </div>
     <div class="flex items-center">
       <div @click.stop="toggleFavorite">

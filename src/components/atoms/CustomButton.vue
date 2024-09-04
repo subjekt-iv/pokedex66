@@ -14,7 +14,12 @@ const props = defineProps({
   },
   buttonClasses: {
     type: String,
-    default: "bg-[#F22539] mt-8 text-white px-4 py-2 font-medium rounded-full",
+    default:
+      "bg-[#F22539] mt-8 text-white px-4 py-2 font-medium rounded-full flex items-center justify-center",
+  },
+  imgSrc: {
+    type: String,
+    default: "",
   },
 });
 
@@ -32,10 +37,11 @@ function handleClick() {
 
 <template>
   <button @click="handleClick" :class="buttonClasses">
-    {{ label }}
+    <div class="flex items-center justify-center">
+      <template v-if="imgSrc">
+        <img :src="imgSrc" alt="" class="mr-2 w-6 h-6" />
+      </template>
+      <span class="mt-1">{{ label }}</span>
+    </div>
   </button>
 </template>
-
-
-
-
