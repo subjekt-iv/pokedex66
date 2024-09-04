@@ -37,7 +37,7 @@ const formattedName = computed(() => {
 
 <template>
   <div
-    class="border p-4 rounded-lg flex justify-between cursor-pointer"
+    class="border-none shadow-md p-4 rounded-lg flex justify-between cursor-pointer"
     @click="openModal"
   >
     <div class="flex justify-center items-center">
@@ -54,3 +54,9 @@ const formattedName = computed(() => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.shadow-md {
+  box-shadow: 0 1px 18px rgba(0, 0, 0, 0.1);
+}
+</style>
