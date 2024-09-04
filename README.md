@@ -1,8 +1,6 @@
 ## Descripción
 
-**Pokemon Favorites** es una aplicación que permite a los usuarios explorar y gestionar sus Pokémon favoritos. Diseñada para ser intuitiva y moderna, la aplicación ofrece una experiencia rica para los fanáticos de Pokémon, permitiéndoles navegar por una lista de Pokémon, marcar sus favoritos y ver información relevante sobre cada uno.
-
-Utiliza **Vue.js 3** para la construcción de la interfaz de usuario, **Pinia** para la gestión del estado, **Vue Router** para la navegación, y **Tailwind CSS** para el diseño responsivo.
+Esta app utiliza **Vue.js 3** para la construcción de la interfaz de usuario, **Pinia** para la gestión del estado, **Vue Router** para la navegación, y **Tailwind CSS** para el diseño responsivo.
 
 ## Estructura del Proyecto
 
@@ -12,7 +10,7 @@ El proyecto está organizado en varias carpetas principales siguiendo el enfoque
 
   - **atoms/**: Componentes básicos y reutilizables como botones e imágenes.
   - **molecules/**: Componentes formados por la combinación de átomos, como **BottomBar** y **Modal**.
-  - **organisms/**: Componentes más complejos que combinan átomos y moléculas para formar secciones completas.
+  - **organisms/**: Decidí omitirlo ya que es una app muy simple.
 
 - **views/**: Vistas completas que representan diferentes secciones de la aplicación.
 
