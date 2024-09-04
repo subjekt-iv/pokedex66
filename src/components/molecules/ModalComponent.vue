@@ -67,7 +67,7 @@ const formattedName = computed(() => {
 <template>
   <div
     v-if="show"
-    class="fixed inset-0 w-96 mx-auto flex items-center justify-center z-50"
+    class="fixed inset-0 w-96 md:w-full mx-auto flex items-center justify-center z-50"
   >
     <div class="fixed inset-0 bg-black opacity-50" @click="closeModal"></div>
     <div class="bg-white p-0 rounded shadow-lg z-10 relative w-full max-w-lg">
