@@ -24,11 +24,6 @@ El proyecto está organizado en varias carpetas principales siguiendo el enfoque
 
 Para configurar y ejecutar el proyecto en tu entorno local, sigue estos pasos:
 
-1. **Instala las dependencias:**
-   ```bash
-   npm install
-   ```
-
 ## Project setup
 
 ```
